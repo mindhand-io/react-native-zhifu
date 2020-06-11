@@ -1,0 +1,36 @@
+{
+  "name": "react-native-zhifu-alipay",
+  "version": "1.0.0",
+  "description": "React Native payment module for Alipay",
+  "main": "index.js",
+  "files": [
+    "README.md",
+    "android",
+    "index.js",
+    "ios",
+    "react-native-zhifu-alipay.podspec"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mindhand-io/react-native-zhifu-alipay.git",
+    "directory": "packages/react-native-zhifu-alipay"
+  },
+  "keywords": [
+    "react-native",
+    "react-native-zhifu",
+    "alipay",
+    "支付宝"
+  ],
+  "author": {
+    "name": "Stackie Jia",
+    "email": "stackie@mindhand.io"
+  },
+  "license": "MIT",
+  "peerDependencies": {
+    "react": "^16.8.1",
+    "react-native": ">=0.60.0-rc.0 <1.0.x"
+  },
+  "devDependencies": {
+    "react-native": "0.62.2"
+  }
+}

@@ -1,0 +1,13 @@
+{
+  "version": "independent",
+  "packages": ["packages/*"],
+  "command": {
+    "publish": {
+      "registry": "https://npm.pkg.github.com",
+      "conventionalCommits": true
+    },
+    "version": {
+      "message": "chore(release): bump versions"
+    }
+  }
+}
