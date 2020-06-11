@@ -59,6 +59,28 @@ interface PayResult {
   result: string;
 }
 
+interface AuthResult {
+  /**
+   * 结果码，含义如下：
+   *
+   * - `9000`	请求处理成功
+   * - `4000`	系统异常
+   * - `6001`	用户中途取消
+   * - `6002`	网络连接出错
+   */
+  resultStatus: string;
+
+  /**
+   * 描述信息
+   */
+  memo: string;
+
+  /**
+   * 具体授权结果，通常应将它发送给后端
+   */
+  result: string;
+}
+
 interface PayInterceptorResult {
   /**
    * 返回码，标识支付状态，含义如下：
@@ -100,7 +122,7 @@ interface RnZhifuAlipayStatic {
    *
    * @param options 授权登录相关选项
    */
-  auth(options: AuthOptions): Promise<Record<string, string>>;
+  auth(options: AuthOptions): Promise<AuthResult>;
 
   /**
    * 判断指定 URL 是否可由支付宝 App 拦截，如果可拦截则跳转支付宝 App，并返回支付结果。用于实现 WebView 跳转支付宝 App 支付。
