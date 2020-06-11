@@ -1,13 +1,13 @@
 interface ShowLoadingOption {
   /**
-   * **（仅 Android 上有效）**是否在跳转支付宝 App 前显示 Loading 画面
+   * **（仅 Android 有效）**是否在跳转支付宝 App 前显示 Loading 画面
    */
   showLoading?: boolean;
 }
 
 interface SchemeOption {
   /**
-   * **（仅 iOS 上有效）**当前应用的 URL Scheme，支付宝 App 完成支付后据此跳回应用（可选，不填会尝试自动获取）
+   * **（仅 iOS 有效）**当前应用的 URL Scheme，支付宝 App 完成支付后据此跳回应用（可选，不填会尝试自动获取）
    */
   scheme?: string;
 }
@@ -115,6 +115,16 @@ interface RnZhifuAlipayStatic {
     options: PayInterceptorOptions,
     onPayResult: (result: PayInterceptorResult) => void
   ): boolean;
+
+  /**
+   * **（仅 Android 有效）**显示 Loading 画面
+   */
+  showLoading(): void;
+
+  /**
+   * **（仅 Android 有效）**隐藏 Loading 画面
+   */
+  dismissLoading(): void;
 }
 declare const alipay: RnZhifuAlipayStatic;
 export default alipay;
