@@ -1,3 +1,22 @@
 {
-  "extends": ["github>mindhand-io/renovate-config"]
+  "extends": ["github>mindhand-io/renovate-config"],
+  "enabledManagers": ["npm"],
+  "packageRules": [
+    {
+      "packageNames": [
+        "react",
+        "react-native",
+        "@babel/core",
+        "@babel/runtime",
+        "@react-native-community/eslint-config",
+        "babel-jest",
+        "eslint",
+        "jest",
+        "@types/jest",
+        "metro-react-native-babel-preset",
+        "react-test-renderer"
+      ],
+      "enabled": false
+    }
+  ]
 }
