@@ -4,7 +4,8 @@ import alipay from "react-native-zhifu-alipay";
 
 const App: FC = () => {
   useEffect(() => {
-    alipay.getSdkVersion().then((version) => {
+    void alipay.getSdkVersion().then((version) => {
+      // eslint-disable-next-line no-console
       console.log(version);
     });
   });
