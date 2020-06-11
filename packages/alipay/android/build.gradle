@@ -73,6 +73,8 @@ repositories {
 dependencies {
     //noinspection GradleDynamicVersion
     implementation 'com.facebook.react:react-native:+'  // From node_modules
+
+    implementation files('libs/alipaySdk-15.7.6-20200521195109.aar')
 }
 
 def configureReactNativePom(def pom) {

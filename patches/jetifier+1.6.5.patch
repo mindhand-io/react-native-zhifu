@@ -1,0 +1,55 @@
+diff --git a/node_modules/jetifier/index.js b/node_modules/jetifier/index.js
+index ae3979c..8674f37 100644
+--- a/node_modules/jetifier/index.js
++++ b/node_modules/jetifier/index.js
+@@ -1,15 +1,17 @@
+ const { fork } = require('child_process');
+ const { join } = require('path');
+-const { getClassesMapping, readDir, chunk } = require('./src/utils');
++const { getClassesMapping, traverseNodeModules, readDir, chunk } = require('./src/utils');
+ 
+ const cpus = require('os').cpus().length;
+ 
+ const arg = process.argv.slice(2)[0];
+ const mode = arg && ((arg === 'reverse') || (arg === '-r')) ? 'reverse' : 'forward';
+-const SEARCH_DIR = 'node_modules';
+ 
+ const classesMapping = getClassesMapping();
+-const files = readDir(SEARCH_DIR);
++const files = [];
++traverseNodeModules(process.cwd(), searchDir => {
++  readDir(searchDir, files);
++});
+ 
+ console.log(`Jetifier found ${files.length} file(s) to ${mode}-jetify. Using ${cpus} workers...`);
+ 
+diff --git a/node_modules/jetifier/src/utils.js b/node_modules/jetifier/src/utils.js
+index 97301b5..0ee19d0 100644
+--- a/node_modules/jetifier/src/utils.js
++++ b/node_modules/jetifier/src/utils.js
+@@ -10,6 +10,17 @@ const chunk = (array, chunkSize) => {
+   return result;
+ };
+ 
++const traverseNodeModules = (startPath, visitFn) => {
++  const nmPath = join(startPath, 'node_modules');
++  if (existsSync(nmPath)) {
++    visitFn(nmPath);
++  }
++  const upperDir = join(startPath, "../");
++  if (upperDir !== startPath) {
++    traverseNodeModules(join(startPath, "../"), visitFn);
++  }
++}
++
+ const readDir = (dir, filesList = []) => {
+   const files = readdirSync(dir);
+   for (let file of files) {
+@@ -68,6 +79,7 @@ const getClassesMapping = () => {
+ 
+ module.exports = {
+   getClassesMapping,
++  traverseNodeModules,
+   readDir,
+   chunk
+ };

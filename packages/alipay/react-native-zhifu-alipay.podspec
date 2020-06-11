@@ -3,7 +3,7 @@ require "json"
 package = JSON.parse(File.read(File.join(__dir__, "package.json")))
 
 Pod::Spec.new do |s|
-  s.name         = "react-native-zhifu-alipay"
+  s.name         = package["name"]
   s.version      = package["version"]
   s.summary      = package["description"]
   s.description  = <<-DESC
@@ -21,8 +21,8 @@ Pod::Spec.new do |s|
   s.source_files = "ios/**/*.{h,c,m,swift}"
   s.requires_arc = true
 
+  s.library = "c++", "z" # 支付宝 SDK 依赖 libc++ / libz
   s.dependency "React"
-  # ...
-  # s.dependency "..."
+  s.dependency "AlipaySDK-iOS", "~> 15.7.4"
 end
 

@@ -2,10 +2,11 @@
   "name": "root",
   "private": true,
   "scripts": {
-    "bootstrap": "npm install && lerna bootstrap",
+    "bootstrap": "npx lerna bootstrap",
     "publish": "lerna publish",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
-    "format": "eslint . --ext .js,.jsx,.ts,.tsx --fix"
+    "format": "eslint . --ext .js,.jsx,.ts,.tsx --fix",
+    "postinstall": "patch-package"
   },
   "devDependencies": {
     "@babel/core": "^7.9.0",
@@ -28,7 +29,9 @@
     "lerna": "^3.22.1",
     "lint-staged": "^10.2.9",
     "metro-react-native-babel-preset": "^0.58.0",
+    "patch-package": "^6.2.2",
     "prettier": "^2.0.5",
+    "react-native": "0.62.2",
     "typescript": "^3.9.5"
   },
   "husky": {
@@ -49,5 +52,9 @@
     "*.md": [
       "prettier --write"
     ]
+  },
+  "dependencies": {
+    "react-native-zhifu-alipay": "file:packages/alipay",
+    "react-native-zhifu-example": "file:packages/app-example"
   }
 }

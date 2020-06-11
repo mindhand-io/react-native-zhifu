@@ -1,5 +1,10 @@
 const path = require("path");
 
+const reactNativePath = require.resolve("react-native");
+const reactNativeFolder = `${
+  reactNativePath.split("node_modules/react-native/")[0]
+}node_modules/react-native/`;
+
 async function createConfig() {
   return {
     transformer: {
@@ -13,6 +18,7 @@ async function createConfig() {
     /**
      * 关于 React Native 和 Monorepo 结合可以参考：https://engineering.brigad.co/react-native-monorepos-code-sharing-f6c08172b417
      */
+    watchFolders: [path.resolve(__dirname, "../../")],
     resolver: {
       /**
        * 解决 Metro 不支持 Symlink 问题
