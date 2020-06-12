@@ -116,7 +116,7 @@ interface RnZhifuAlipayStatic {
   pay(options: PayOptions): Promise<PayResult>;
 
   /**
-   * 发起支付宝授权登录
+   * 发起支付宝快捷登录
    *
    * 产品介绍：https://opendocs.alipay.com/open/218/105329\
    *

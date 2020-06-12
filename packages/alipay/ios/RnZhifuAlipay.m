@@ -4,11 +4,20 @@
 
 RCT_EXPORT_MODULE()
 
++ (BOOL)requiresMainQueueSetup
+{
+    return NO;
+}
+
 - (instancetype)init
 {
     self = [super init];
     if (self) {
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleOpenURLNotification:) name:@"RCTOpenURLNotification" object:nil];
+        // 反注释下面代码，可以输出支付宝调试信息，便于诊断问题
+        [AlipaySDK startLogWithBlock:^(NSString* log){
+            NSLog(@"%@", log);
+        }];
     }
     return self;
 }
@@ -23,7 +32,6 @@ RCT_EXPORT_MODULE()
     NSString * aURLString =  [aNotification userInfo][@"url"];
     NSURL * aURL = [NSURL URLWithString:aURLString];
     if ([aURL.host isEqualToString:@"safepay"]) {
-        // 处理支付宝 App 返回结果
         [[AlipaySDK defaultService] processOrderWithPaymentResult:aURL standbyCallback:nil];
         [[AlipaySDK defaultService] processAuth_V2Result:aURL standbyCallback:nil];
     }
@@ -45,6 +53,15 @@ RCT_EXPORT_MODULE()
     return scheme;
 }
 
+- (BOOL)ensureSchemeValid:(NSString*)scheme withRejecter:(RCTPromiseRejectBlock)reject
+{
+    if ([scheme length] == 0) {
+        reject(@"INVALID_SCHEME", @"自动获取 URL Scheme 失败，请确认你的应用已经设置了 Info.plist -> URL Types -> URL Schemes，或者手动提供 scheme 选项", nil);
+        return NO;
+    }
+    return YES;
+}
+
 RCT_REMAP_METHOD(getSdkVersion,
                  getSdkVersionWithResolver:(RCTPromiseResolveBlock)resolve
                  rejecter:(RCTPromiseRejectBlock)reject)
@@ -57,12 +74,19 @@ RCT_REMAP_METHOD(pay,
                  resolver:(RCTPromiseResolveBlock)resolve
                  rejecter:(RCTPromiseRejectBlock)reject)
 {
-    [[AlipaySDK defaultService]
-     payOrder:options[@"orderInfo"]
-     fromScheme:[self getSchemeFromOptions:options]
-     callback:^(NSDictionary *resultDic) {
-        resolve(resultDic);
-    }];
+    NSString* scheme = [self getSchemeFromOptions:options];
+    if (![self ensureSchemeValid:scheme withRejecter:reject]) {
+        return;
+    }
+    dispatch_async(dispatch_get_main_queue(), ^{
+        // 支付宝 SDK 需要在 UI 线程调用（因为内部有 openURL 动作）
+        [[AlipaySDK defaultService]
+         payOrder:options[@"orderInfo"]
+         fromScheme:scheme
+         callback:^(NSDictionary *resultDic) {
+            resolve(resultDic);
+        }];
+    });
 }
 
 RCT_REMAP_METHOD(auth,
@@ -70,12 +94,19 @@ RCT_REMAP_METHOD(auth,
                  resolver:(RCTPromiseResolveBlock)resolve
                  rejecter:(RCTPromiseRejectBlock)reject)
 {
-    [[AlipaySDK defaultService]
-     auth_V2WithInfo:options[@"authInfo"]
-     fromScheme:[self getSchemeFromOptions:options]
-     callback:^(NSDictionary *resultDic) {
-        resolve(resultDic);
-    }];
+    NSString* scheme = [self getSchemeFromOptions:options];
+    if (![self ensureSchemeValid:scheme withRejecter:reject]) {
+        return;
+    }
+    dispatch_async(dispatch_get_main_queue(), ^{
+        // 支付宝 SDK 需要在 UI 线程调用（因为内部有 openURL 动作）
+        [[AlipaySDK defaultService]
+         auth_V2WithInfo:options[@"authInfo"]
+         fromScheme:scheme
+         callback:^(NSDictionary *resultDic) {
+            resolve(resultDic);
+        }];
+    });
 }
 
 RCT_REMAP_METHOD(payInterceptorWithUrl,
@@ -84,13 +115,20 @@ RCT_REMAP_METHOD(payInterceptorWithUrl,
                  resolver:(RCTPromiseResolveBlock)resolve
                  rejecter:(RCTPromiseRejectBlock)reject)
 {
-    BOOL isIntercepted = [[AlipaySDK defaultService]
-     payInterceptorWithUrl:options[@"h5PayUrl"]
-     fromScheme:[self getSchemeFromOptions:options]
-     callback:^(NSDictionary *resultDic) {
-        callback(@[resultDic]);
-    }];
-    resolve([NSNumber numberWithBool:isIntercepted]);
+    NSString* scheme = [self getSchemeFromOptions:options];
+    if (![self ensureSchemeValid:scheme withRejecter:reject]) {
+        return;
+    }
+    dispatch_async(dispatch_get_main_queue(), ^{
+        // 支付宝 SDK 需要在 UI 线程调用（因为内部有 openURL 动作）
+        BOOL isIntercepted = [[AlipaySDK defaultService]
+         payInterceptorWithUrl:options[@"h5PayUrl"]
+         fromScheme:scheme
+         callback:^(NSDictionary *resultDic) {
+            callback(@[resultDic]);
+        }];
+        resolve([NSNumber numberWithBool:isIntercepted]);
+    });
 }
 
 @end
