@@ -1,6 +1,6 @@
 interface ShowLoadingOption {
   /**
-   * **（仅 Android 有效）**是否在跳转支付宝 App 前显示 Loading 画面
+   * **（仅 Android 有效）**是否在跳转支付宝 App 前显示“去支付宝付款/授权...”画面
    */
   showLoading?: boolean;
 }
@@ -137,16 +137,6 @@ interface RnZhifuAlipayStatic {
     options: PayInterceptorOptions,
     onPayResult: (result: PayInterceptorResult) => void
   ): boolean;
-
-  /**
-   * **（仅 Android 有效）**显示 Loading 画面
-   */
-  showLoading(): void;
-
-  /**
-   * **（仅 Android 有效）**隐藏 Loading 画面
-   */
-  dismissLoading(): void;
 }
 declare const alipay: RnZhifuAlipayStatic;
 export default alipay;

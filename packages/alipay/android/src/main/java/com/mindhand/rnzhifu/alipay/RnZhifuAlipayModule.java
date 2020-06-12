@@ -52,7 +52,7 @@ public class RnZhifuAlipayModule extends ReactContextBaseJavaModule {
       @Override
       public void run() {
         WritableMap result = Arguments.createMap();
-        for (Map.Entry<String, String> entry : payTask.payV2(options.getString("orderInfo"), options.getBoolean("showLoading")).entrySet()) {
+        for (Map.Entry<String, String> entry : payTask.payV2(options.getString("orderInfo"), options.hasKey("showLoading") && options.getBoolean("showLoading")).entrySet()) {
           result.putString(entry.getKey(), entry.getValue());
         }
         promise.resolve(result);
@@ -68,7 +68,7 @@ public class RnZhifuAlipayModule extends ReactContextBaseJavaModule {
       @Override
       public void run() {
         WritableMap result = Arguments.createMap();
-        for (Map.Entry<String, String> entry : authTask.authV2(options.getString("authInfo"), options.getBoolean("showLoading")).entrySet()) {
+        for (Map.Entry<String, String> entry : authTask.authV2(options.getString("authInfo"), options.hasKey("showLoading") && options.getBoolean("showLoading")).entrySet()) {
           result.putString(entry.getKey(), entry.getValue());
         }
         promise.resolve(result);
@@ -83,7 +83,7 @@ public class RnZhifuAlipayModule extends ReactContextBaseJavaModule {
     Runnable payRunnable = new Runnable() {
       @Override
       public void run() {
-        boolean isIntercepted = payTask.payInterceptorWithUrl(options.getString("h5PayUrl"), options.getBoolean("showLoading"), new H5PayCallback() {
+        boolean isIntercepted = payTask.payInterceptorWithUrl(options.getString("h5PayUrl"), options.hasKey("showLoading") && options.getBoolean("showLoading"), new H5PayCallback() {
           @Override
           public void onPayResult(final H5PayResultModel payResult) {
             WritableMap result = Arguments.createMap();
@@ -97,15 +97,5 @@ public class RnZhifuAlipayModule extends ReactContextBaseJavaModule {
     };
     Thread payThread = new Thread(payRunnable);
     payThread.start();
-  }
-
-  @ReactMethod
-  public void showLoading() {
-    payTask.showLoading();
-  }
-
-  @ReactMethod
-  public void dismissLoading() {
-    payTask.dismissLoading();
   }
 }

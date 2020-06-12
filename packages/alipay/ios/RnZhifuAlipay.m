@@ -15,9 +15,9 @@ RCT_EXPORT_MODULE()
     if (self) {
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleOpenURLNotification:) name:@"RCTOpenURLNotification" object:nil];
         // 反注释下面代码，可以输出支付宝调试信息，便于诊断问题
-        [AlipaySDK startLogWithBlock:^(NSString* log){
-            NSLog(@"%@", log);
-        }];
+//        [AlipaySDK startLogWithBlock:^(NSString* log){
+//            NSLog(@"%@", log);
+//        }];
     }
     return self;
 }
