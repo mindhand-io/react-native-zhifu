@@ -13,7 +13,7 @@
     "@babel/runtime": "^7.10.1",
     "@commitlint/cli": "^9.0.0",
     "@commitlint/config-conventional": "^9.0.0",
-    "@mindhand-io/eslint-config": "^2.0.1",
+    "@mindhand-io/eslint-config": "^3.0.0",
     "@react-native-community/eslint-config": "^1.1.0",
     "@types/react": "^16.9.35",
     "@types/react-native": "^0.62.13",
