@@ -2,7 +2,7 @@
   "name": "react-native-zhifu-example",
   "private": true,
   "description": "Examples for react-native-zhifu",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "scripts": {
     "android": "yarn packager && react-native run-android --no-packager",
     "ios": "yarn packager && react-native run-ios --no-packager",
@@ -15,7 +15,7 @@
     "moment": "^2.26.0",
     "react": "^16.13.1",
     "react-native": "0.62.2",
-    "react-native-zhifu-alipay": "^1.0.0",
-    "react-native-zhifu-wechatpay": "^1.0.0"
+    "react-native-zhifu-alipay": "^1.1.0",
+    "react-native-zhifu-wechatpay": "^1.1.0"
   }
 }
