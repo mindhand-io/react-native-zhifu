@@ -8,7 +8,6 @@
       "forceLocal": true
     },
     "publish": {
-      "registry": "https://npm.pkg.github.com",
       "conventionalCommits": true
     },
     "version": {
