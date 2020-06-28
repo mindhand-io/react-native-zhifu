@@ -9,7 +9,9 @@ import {
   Alert,
 } from "react-native";
 import alipay from "react-native-zhifu-alipay";
+import wechatPay from "react-native-zhifu-wechatpay";
 import { generateTestAuthInfo, generateTestOrderInfo } from "./utils/alipay";
+import { wechatRegisteredApp } from "./config";
 
 const styles = StyleSheet.create({
   scrollContainer: {
@@ -29,11 +31,24 @@ const App: FC = () => {
   const [alipaySdkVersion, setAlipaySdkVersion] = useState<
     string | undefined
   >();
+  const [wechatSdkVersion, setWechatSdkVersion] = useState<
+    string | undefined
+  >();
 
   useEffect(() => {
-    void alipay.getSdkVersion().then((version) => {
-      setAlipaySdkVersion(version);
-    });
+    async function initSdk(): Promise<void> {
+      await alipay.init();
+      await wechatPay.init({
+        appId: wechatRegisteredApp.appId,
+        universalLink: wechatRegisteredApp.universalLink,
+      });
+    }
+    async function fetchSdkVersions(): Promise<void> {
+      setAlipaySdkVersion(await alipay.getSdkVersion());
+      setWechatSdkVersion(await wechatPay.getSdkVersion());
+    }
+    void initSdk();
+    void fetchSdkVersions();
   });
 
   const handlePayViaAlipay = useCallback(async () => {
@@ -41,7 +56,7 @@ const App: FC = () => {
       orderInfo: generateTestOrderInfo(),
     });
     Alert.alert(
-      `支付结果`,
+      "支付结果",
       `状态码：${resultStatus}\n描述：${memo}\n内容：${result}`
     );
   }, []);
@@ -51,9 +66,26 @@ const App: FC = () => {
       authInfo: generateTestAuthInfo(),
     });
     Alert.alert(
-      `授权结果`,
+      "授权结果",
       `状态码：${resultStatus}\n描述：${memo}\n内容：${result}`
     );
+  }, []);
+
+  const handlePayViaWechatPay = useCallback(async () => {
+    /* eslint-disable @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-member-access */
+    const order = await fetch(
+      "https://wxpay.wxutil.com/pub_v2/app/app_pay.php?plat=ios"
+    ).then((resp) => resp.json());
+    const { errCode } = await wechatPay.pay({
+      partnerId: order.partnerid,
+      prepayId: order.prepayid,
+      nonceStr: order.noncestr,
+      timestamp: order.timestamp,
+      package: order.package,
+      sign: order.sign,
+    });
+    /* eslint-enable */
+    Alert.alert("支付结果", `状态码：${errCode}`);
   }, []);
 
   return (
@@ -65,6 +97,10 @@ const App: FC = () => {
         </View>
         <View style={styles.buttonContainer}>
           <Button title="支付宝：快捷登录" onPress={handleAuthViaAlipay} />
+        </View>
+        <Text style={styles.label}>微信 SDK 版本：{wechatSdkVersion}</Text>
+        <View style={styles.buttonContainer}>
+          <Button title="微信：发起支付" onPress={handlePayViaWechatPay} />
         </View>
       </ScrollView>
     </SafeAreaView>

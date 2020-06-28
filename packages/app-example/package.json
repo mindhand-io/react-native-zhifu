@@ -4,17 +4,18 @@
   "description": "Examples for react-native-zhifu",
   "version": "0.0.1",
   "scripts": {
-    "android": "npm run packager && ../../node_modules/.bin/react-native run-android --no-packager",
-    "ios": "npm run packager && ../../node_modules/.bin/react-native run-ios --no-packager",
+    "android": "yarn packager && react-native run-android --no-packager",
+    "ios": "yarn packager && react-native run-ios --no-packager",
     "packager": "open start-packager.command",
-    "start": "../../node_modules/.bin/react-native start"
+    "start": "react-native start"
   },
   "dependencies": {
     "buffer": "^5.6.0",
     "jsrsasign": "^8.0.16",
     "moment": "^2.26.0",
-    "react": "16.11.0",
+    "react": "^16.13.1",
     "react-native": "0.62.2",
-    "react-native-zhifu-alipay": "file:../alipay"
+    "react-native-zhifu-alipay": "^1.0.0",
+    "react-native-zhifu-wechatpay": "^1.0.0"
   }
 }

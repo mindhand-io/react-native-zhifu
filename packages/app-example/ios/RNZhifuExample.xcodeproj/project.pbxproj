@@ -68,6 +68,7 @@
 		8EAC86C86C470DF2A4D9C552 /* Pods-RNZhifuExample-RNZhifuExampleTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RNZhifuExample-RNZhifuExampleTests.debug.xcconfig"; path = "Target Support Files/Pods-RNZhifuExample-RNZhifuExampleTests/Pods-RNZhifuExample-RNZhifuExampleTests.debug.xcconfig"; sourceTree = "<group>"; };
 		9F9A97832490EF6B00E92D96 /* IBMPlexSans-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "IBMPlexSans-Bold.ttf"; path = "../../design/assets/fonts/IBMPlexSans-Bold.ttf"; sourceTree = "<group>"; };
 		A9A67C7E3B0D31B83DC73D51 /* Pods-RNZhifuExample-tvOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RNZhifuExample-tvOS.debug.xcconfig"; path = "Target Support Files/Pods-RNZhifuExample-tvOS/Pods-RNZhifuExample-tvOS.debug.xcconfig"; sourceTree = "<group>"; };
+		C1CE9F8424A8990200AEB254 /* RN Zhifu.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = "RN Zhifu.entitlements"; path = "RNZhifuExample/RN Zhifu.entitlements"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		ED2971642150620600B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS12.0.sdk/System/Library/Frameworks/JavaScriptCore.framework; sourceTree = DEVELOPER_DIR; };
 		ED9133D6370A4F4AAC711BEC /* IBMPlexSans-Medium.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "IBMPlexSans-Medium.ttf"; path = "../../design/assets/fonts/IBMPlexSans-Medium.ttf"; sourceTree = "<group>"; };
@@ -130,6 +131,7 @@
 		13B07FAE1A68108700A75B9A /* RNZhifuExample */ = {
 			isa = PBXGroup;
 			children = (
+				C1CE9F8424A8990200AEB254 /* RN Zhifu.entitlements */,
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.m */,
@@ -224,7 +226,7 @@
 				00E356EA1AD99517003FC87E /* Sources */,
 				00E356EB1AD99517003FC87E /* Frameworks */,
 				00E356EC1AD99517003FC87E /* Resources */,
-				215B395443670CA44B7B2CB1 /* [CP] Copy Pods Resources */,
+				279B8B14B5231227A864C34E /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -246,7 +248,7 @@
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
-				84A3D28E9D045509F2B82128 /* [CP] Copy Pods Resources */,
+				760229B5BA5C98ABFC06E714 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -394,7 +396,7 @@
 			shellPath = /bin/sh;
 			shellScript = "export NODE_BINARY=node\nexport PROJECT_ROOT=\"$PROJECT_DIR/..\"\n../../../node_modules/react-native/scripts/react-native-xcode.sh\n";
 		};
-		215B395443670CA44B7B2CB1 /* [CP] Copy Pods Resources */ = {
+		279B8B14B5231227A864C34E /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -448,6 +450,24 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
+		760229B5BA5C98ABFC06E714 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-RNZhifuExample/Pods-RNZhifuExample-resources.sh",
+				"${PODS_ROOT}/../../../alipay/ios/AlipaySDK.bundle",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/AlipaySDK.bundle",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-RNZhifuExample/Pods-RNZhifuExample-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		7D98E2EFC24FC4E35DF06B27 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -490,24 +510,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		84A3D28E9D045509F2B82128 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-RNZhifuExample/Pods-RNZhifuExample-resources.sh",
-				"${PODS_ROOT}/../../../alipay/ios/AlipaySDK.bundle",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/AlipaySDK.bundle",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-RNZhifuExample/Pods-RNZhifuExample-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		C02F917E4BBB3C878B57B743 /* [CP] Check Pods Manifest.lock */ = {
@@ -684,6 +686,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = "RNZhifuExample/RN Zhifu.entitlements";
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 3BNRGF9W34;
 				ENABLE_BITCODE = NO;
@@ -712,6 +715,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = "RNZhifuExample/RN Zhifu.entitlements";
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 3BNRGF9W34;
 				INFOPLIST_FILE = RNZhifuExample/Info.plist;

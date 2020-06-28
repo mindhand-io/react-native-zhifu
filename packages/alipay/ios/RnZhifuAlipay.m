@@ -14,7 +14,7 @@ RCT_EXPORT_MODULE()
     self = [super init];
     if (self) {
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleOpenURLNotification:) name:@"RCTOpenURLNotification" object:nil];
-        // 反注释下面代码，可以输出支付宝调试信息，便于诊断问题
+        // 反注释下面代码，可以输出支付宝 SDK 调试信息，便于诊断问题
 //        [AlipaySDK startLogWithBlock:^(NSString* log){
 //            NSLog(@"%@", log);
 //        }];
@@ -37,7 +37,17 @@ RCT_EXPORT_MODULE()
     }
 }
 
-- (NSString*)getSchemeFromOptions:(NSDictionary*)options
+RCT_REMAP_METHOD(getSdkVersion,
+                 getSdkVersionWithResolver:(RCTPromiseResolveBlock)resolve
+                 rejecter:(RCTPromiseRejectBlock)reject)
+{
+    resolve([[AlipaySDK defaultService] currentVersion]);
+}
+
+RCT_REMAP_METHOD(init,
+                 initWithOptions:(NSDictionary*)options
+                 resolver:(RCTPromiseResolveBlock)resolve
+                 rejecter:(RCTPromiseRejectBlock)reject)
 {
     NSString* scheme = options[@"scheme"];
     // Scheme 如果没有传递，则自动获取可用 Scheme
@@ -50,23 +60,12 @@ RCT_EXPORT_MODULE()
             }
         }
     }
-    return scheme;
-}
-
-- (BOOL)ensureSchemeValid:(NSString*)scheme withRejecter:(RCTPromiseRejectBlock)reject
-{
     if ([scheme length] == 0) {
         reject(@"INVALID_SCHEME", @"自动获取 URL Scheme 失败，请确认你的应用已经设置了 Info.plist -> URL Types -> URL Schemes，或者手动提供 scheme 选项", nil);
-        return NO;
+        return;
     }
-    return YES;
-}
-
-RCT_REMAP_METHOD(getSdkVersion,
-                 getSdkVersionWithResolver:(RCTPromiseResolveBlock)resolve
-                 rejecter:(RCTPromiseRejectBlock)reject)
-{
-    resolve([[AlipaySDK defaultService] currentVersion]);
+    [self setScheme:scheme];
+    resolve(nil);
 }
 
 RCT_REMAP_METHOD(pay,
@@ -74,15 +73,11 @@ RCT_REMAP_METHOD(pay,
                  resolver:(RCTPromiseResolveBlock)resolve
                  rejecter:(RCTPromiseRejectBlock)reject)
 {
-    NSString* scheme = [self getSchemeFromOptions:options];
-    if (![self ensureSchemeValid:scheme withRejecter:reject]) {
-        return;
-    }
     dispatch_async(dispatch_get_main_queue(), ^{
-        // 支付宝 SDK 需要在 UI 线程调用（因为内部有 openURL 动作）
+        // 支付宝 SDK 必须在 UI 线程调用
         [[AlipaySDK defaultService]
          payOrder:options[@"orderInfo"]
-         fromScheme:scheme
+         fromScheme:[self scheme]
          callback:^(NSDictionary *resultDic) {
             resolve(resultDic);
         }];
@@ -94,15 +89,11 @@ RCT_REMAP_METHOD(auth,
                  resolver:(RCTPromiseResolveBlock)resolve
                  rejecter:(RCTPromiseRejectBlock)reject)
 {
-    NSString* scheme = [self getSchemeFromOptions:options];
-    if (![self ensureSchemeValid:scheme withRejecter:reject]) {
-        return;
-    }
     dispatch_async(dispatch_get_main_queue(), ^{
-        // 支付宝 SDK 需要在 UI 线程调用（因为内部有 openURL 动作）
+        // 支付宝 SDK 必须在 UI 线程调用
         [[AlipaySDK defaultService]
          auth_V2WithInfo:options[@"authInfo"]
-         fromScheme:scheme
+         fromScheme:[self scheme]
          callback:^(NSDictionary *resultDic) {
             resolve(resultDic);
         }];
@@ -115,15 +106,11 @@ RCT_REMAP_METHOD(payInterceptorWithUrl,
                  resolver:(RCTPromiseResolveBlock)resolve
                  rejecter:(RCTPromiseRejectBlock)reject)
 {
-    NSString* scheme = [self getSchemeFromOptions:options];
-    if (![self ensureSchemeValid:scheme withRejecter:reject]) {
-        return;
-    }
     dispatch_async(dispatch_get_main_queue(), ^{
-        // 支付宝 SDK 需要在 UI 线程调用（因为内部有 openURL 动作）
+        // 支付宝 SDK 必须在 UI 线程调用
         BOOL isIntercepted = [[AlipaySDK defaultService]
          payInterceptorWithUrl:options[@"h5PayUrl"]
-         fromScheme:scheme
+         fromScheme:[self scheme]
          callback:^(NSDictionary *resultDic) {
             callback(@[resultDic]);
         }];

@@ -12,7 +12,7 @@ if [[ packager_running -ge 1 ]]; then
   exit 1
 else
   # shellcheck source=/dev/null
-  npm start
+  yarn start
 fi
 
 if [[ -z "$CI" ]]; then

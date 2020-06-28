@@ -5,7 +5,7 @@ interface ShowLoadingOption {
   showLoading?: boolean;
 }
 
-interface SchemeOption {
+interface InitOptions {
   /**
    * **（仅 iOS 有效）**当前应用的 URL Scheme，支付宝 App 完成支付后据此跳回应用（可选，不填会尝试自动获取）
    */
@@ -17,21 +17,18 @@ type PayOptions = {
    * 订单信息串，通常由后端提供
    */
   orderInfo: string;
-} & ShowLoadingOption &
-  SchemeOption;
+} & ShowLoadingOption;
 
 type AuthOptions = {
   /**
    * 授权信息串，通常由后端提供
    */
   authInfo: string;
-} & ShowLoadingOption &
-  SchemeOption;
+} & ShowLoadingOption;
 
 type PayInterceptorOptions = {
   h5PayUrl: string;
-} & ShowLoadingOption &
-  SchemeOption;
+} & ShowLoadingOption;
 
 interface PayResult {
   /**
@@ -105,6 +102,13 @@ interface RnZhifuAlipayStatic {
    * 获取当前平台上支付宝 SDK 版本号
    */
   getSdkVersion(): Promise<string>;
+
+  /**
+   * 初始化支付宝 SDK，必须在调用其他 API 前使用
+   *
+   * @param options 初始化相关选项
+   */
+  init(options?: InitOptions): Promise<void>;
 
   /**
    * 发起一笔支付

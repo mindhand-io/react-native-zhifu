@@ -47,6 +47,11 @@ public class RnZhifuAlipayModule extends ReactContextBaseJavaModule {
   }
 
   @ReactMethod
+  public void init(final ReadableMap options, Promise promise) {
+    promise.resolve(null);
+  }
+
+  @ReactMethod
   void pay(final ReadableMap options, final Promise promise) {
     Runnable payRunnable = new Runnable() {
       @Override

@@ -17,8 +17,8 @@ import RnZhifuAlipay from "react-native-zhifu-alipay";
 RnZhifuAlipay;
 ```
 
-设置 LSApplicationQueriesSchemes alipay weixin weixinULAPI
-设置 URL Scheme
+设置至少一个 URL Scheme
+proguard
 
 ```objc
 #import <React/RCTLinkingManager.h>

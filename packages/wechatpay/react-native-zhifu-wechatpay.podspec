@@ -7,7 +7,7 @@ Pod::Spec.new do |s|
   s.version      = package["version"]
   s.summary      = package["description"]
   s.description  = <<-DESC
-                  react-native-zhifu-alipay
+                  react-native-zhifu-wechatpay
                    DESC
   s.homepage     = "https://github.com/mindhand-io/react-native-zhifu"
   # brief license entry:
@@ -21,12 +21,7 @@ Pod::Spec.new do |s|
   s.source_files = "ios/**/*.{h,c,m,swift}"
   s.requires_arc = true
 
-  # 支付宝 SDK 依赖的 library 和 frameworks
-  s.library = "c++", "z"
-  s.frameworks = "UIKit", "Foundation", "CFNetwork", "SystemConfiguration", "QuartzCore", "CoreGraphics", "CoreMotion", "CoreTelephony", "CoreText", "WebKit"
-
-  s.resource = "ios/AlipaySDK.bundle"
-  s.vendored_frameworks = 'ios/AlipaySDK.framework'
+  s.dependency 'WechatOpenSDK', '~> 1.8.7'
 
   s.dependency "React"
 end

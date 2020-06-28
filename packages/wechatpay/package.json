@@ -1,25 +1,27 @@
 {
-  "name": "react-native-zhifu-alipay",
+  "name": "react-native-zhifu-wechatpay",
   "version": "1.0.0",
-  "description": "React Native payment module for Alipay",
+  "description": "React Native payment module for WeChat Pay",
   "main": "index.js",
   "files": [
     "README.md",
     "android",
     "index.js",
     "ios",
-    "react-native-zhifu-alipay.podspec"
+    "react-native-zhifu-wechatpay.podspec"
   ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/mindhand-io/react-native-zhifu.git",
-    "directory": "packages/react-native-zhifu-alipay"
+    "directory": "packages/react-native-zhifu-wechatpay"
   },
   "keywords": [
     "react-native",
     "react-native-zhifu",
-    "alipay",
-    "支付宝"
+    "wechat",
+    "wechatpay",
+    "wechat-pay",
+    "微信支付"
   ],
   "author": {
     "name": "Stackie Jia",

@@ -3,4 +3,6 @@
 
 @interface RnZhifuAlipay : NSObject <RCTBridgeModule>
 
+@property (retain, nonatomic) NSString* scheme;
+
 @end
