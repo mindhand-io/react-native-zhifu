@@ -75,7 +75,7 @@ dependencies {
     implementation 'com.facebook.react:react-native:+'  // From node_modules
 
     //noinspection GradleDynamicVersion
-    implementation 'com.tencent.mm.opensdk:wechat-sdk-android-without-mta:+'
+    api 'com.tencent.mm.opensdk:wechat-sdk-android-without-mta:+'
 }
 
 def configureReactNativePom(def pom) {

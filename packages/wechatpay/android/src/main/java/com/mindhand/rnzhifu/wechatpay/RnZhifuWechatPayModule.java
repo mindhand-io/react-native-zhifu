@@ -6,7 +6,6 @@ import com.facebook.react.bridge.ReactMethod;
 import com.facebook.react.bridge.Promise;
 import com.facebook.react.bridge.ReadableMap;
 import com.tencent.mm.opensdk.constants.Build;
-import com.tencent.mm.opensdk.constants.ConstantsAPI;
 import com.tencent.mm.opensdk.modelpay.PayReq;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 
@@ -34,7 +33,7 @@ public class RnZhifuWechatPayModule extends ReactContextBaseJavaModule {
   @ReactMethod
   public void init(final ReadableMap options, Promise promise) {
     appId = options.getString("appId");
-    WXEntryActivity.wxApi = WXAPIFactory.createWXAPI(getCurrentActivity(), appId);
+    WXPayEntryActivity.wxApi = WXAPIFactory.createWXAPI(getCurrentActivity(), appId);
     promise.resolve(null);
   }
 
@@ -48,7 +47,7 @@ public class RnZhifuWechatPayModule extends ReactContextBaseJavaModule {
     req.nonceStr = options.getString("nonceStr");
     req.timeStamp = String.valueOf(options.getInt("timestamp"));
     req.sign = options.getString("sign");
-    WXEntryActivity.paymentResultPromise = promise;
-    WXEntryActivity.wxApi.sendReq(req);
+    WXPayEntryActivity.paymentResultPromise = promise;
+    WXPayEntryActivity.wxApi.sendReq(req);
   }
 }

@@ -10,6 +10,10 @@
       </intent-filter>
     </activity>
     <activity android:name="com.facebook.react.devsupport.DevSettingsActivity" />
+    <activity
+      android:name=".wxapi.WXPayEntryActivity"
+      android:label="@string/app_name"
+      android:exported="true" />
   </application>
 
 </manifest>

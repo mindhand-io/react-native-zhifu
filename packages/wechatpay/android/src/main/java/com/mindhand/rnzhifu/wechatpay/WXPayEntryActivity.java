@@ -13,7 +13,7 @@ import com.tencent.mm.opensdk.modelpay.PayResp;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.IWXAPIEventHandler;
 
-public class WXEntryActivity extends Activity implements IWXAPIEventHandler {
+public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler {
   public static IWXAPI wxApi;
   public static Promise paymentResultPromise;
 

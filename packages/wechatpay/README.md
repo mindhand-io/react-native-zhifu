@@ -1,12 +1,25 @@
 # react-native-zhifu-wechatpay
 
 - 设置 LSApplicationQueriesSchemes weixin weixinULAPI
-- 设置 URL Scheme 为 app id
-- 配置 associated domains，配置 universal links
-- proguard
-- 继承 WXEntryActivity
+- 添加一个 URL Scheme，值为微信开放平台的 App ID
+- 启用 `Associated Domains` entitlement，按官方文档配置好 universal links
+- 创建 `WXPayEntryActivity` 并继承 `com.mindhand.rnzhifu.wechatpay.WXPayEntryActivity`
 
+```java
+package com.你的包名.wxapi;
+
+public class WXPayEntryActivity extends com.mindhand.rnzhifu.wechatpay.WXPayEntryActivity {
+}
 ```
+
+```xml
+<activity
+  android:name=".wxapi.WXPayEntryActivity"
+  android:label="@string/app_name"
+  android:exported="true" />
+```
+
+```text
 -keep class com.tencent.mm.opensdk.** {
     *;
 }
