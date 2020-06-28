@@ -1,27 +1,10 @@
 # react-native-zhifu-wechatpay
 
-## Getting started
-
-`$ npm install react-native-zhifu-wechatpay --save`
-
-### Mostly automatic installation
-
-`$ react-native link react-native-zhifu-wechatpay`
-
-## Usage
-
-```javascript
-import RnZhifuWechatPay from "react-native-zhifu-wechatpay";
-
-// TODO: What to do with the module?
-RnZhifuWechatPay;
-```
-
-设置 LSApplicationQueriesSchemes weixin weixinULAPI
-设置 URL Scheme 为 app id
-配置 associated domains，配置 universal links
-proguard
-继承 WXEntryActivity
+- 设置 LSApplicationQueriesSchemes weixin weixinULAPI
+- 设置 URL Scheme 为 app id
+- 配置 associated domains，配置 universal links
+- proguard
+- 继承 WXEntryActivity
 
 ```
 -keep class com.tencent.mm.opensdk.** {
