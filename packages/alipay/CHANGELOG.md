@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [1.2.0](https://github.com/mindhand-io/react-native-zhifu/compare/react-native-zhifu-alipay@1.1.4...react-native-zhifu-alipay@1.2.0) (2020-07-01)
+
+### Features
+
+- 支持支付宝沙盒模式 ([0c570ce](https://github.com/mindhand-io/react-native-zhifu/commit/0c570ceb317cba99df7ac1e23bde3ae6e6ff7ad5))
+
 ## [1.1.4](https://github.com/mindhand-io/react-native-zhifu/compare/react-native-zhifu-alipay@1.1.3...react-native-zhifu-alipay@1.1.4) (2020-06-28)
 
 **Note:** Version bump only for package react-native-zhifu-alipay
