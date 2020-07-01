@@ -19,7 +19,10 @@ async function createConfig() {
     /**
      * 关于 React Native 和 Monorepo 结合可以参考：https://engineering.brigad.co/react-native-monorepos-code-sharing-f6c08172b417
      */
-    watchFolders: [path.resolve(__dirname, "../../")],
+    watchFolders: [
+      path.resolve(__dirname, "../"),
+      path.resolve(__dirname, "../../node_modules"),
+    ],
     resolver: {
       /**
        * 解决 Metro 不支持 Symlink 问题

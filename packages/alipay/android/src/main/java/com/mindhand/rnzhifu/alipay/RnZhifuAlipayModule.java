@@ -3,6 +3,7 @@ package com.mindhand.rnzhifu.alipay;
 import android.app.Activity;
 
 import com.alipay.sdk.app.AuthTask;
+import com.alipay.sdk.app.EnvUtils;
 import com.alipay.sdk.app.H5PayCallback;
 import com.alipay.sdk.app.PayTask;
 import com.alipay.sdk.util.H5PayResultModel;
@@ -48,6 +49,11 @@ public class RnZhifuAlipayModule extends ReactContextBaseJavaModule {
 
   @ReactMethod
   public void init(final ReadableMap options, Promise promise) {
+    if (options.hasKey("sandboxMode") && options.getBoolean("sandboxMode")) {
+      EnvUtils.setEnv(EnvUtils.EnvEnum.SANDBOX);
+    } else {
+      EnvUtils.setEnv(EnvUtils.EnvEnum.ONLINE);
+    }
     promise.resolve(null);
   }
 

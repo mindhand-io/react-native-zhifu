@@ -10,6 +10,13 @@ interface InitOptions {
    * **（仅 iOS 有效）**当前应用的 URL Scheme，支付宝 App 完成支付后据此跳回应用（可选，不填会尝试自动获取）
    */
   scheme?: string;
+
+  /**
+   * **（仅 Android 有效）**是否启用沙箱环境，默认不启用
+   *
+   * 沙箱联调指南：https://opendocs.alipay.com/open/204/106450
+   */
+  sandboxMode?: boolean;
 }
 
 type PayOptions = {

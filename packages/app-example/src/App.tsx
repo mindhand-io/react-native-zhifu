@@ -13,6 +13,12 @@ import wechatPay from "react-native-zhifu-wechatpay";
 import { generateTestAuthInfo, generateTestOrderInfo } from "./utils/alipay";
 import { wechatRegisteredApp } from "./config";
 
+void alipay.init();
+void wechatPay.init({
+  appId: wechatRegisteredApp.appId,
+  universalLink: wechatRegisteredApp.universalLink,
+});
+
 const styles = StyleSheet.create({
   scrollContainer: {
     padding: 25,
@@ -36,18 +42,10 @@ const App: FC = () => {
   >();
 
   useEffect(() => {
-    async function initSdk(): Promise<void> {
-      await alipay.init();
-      await wechatPay.init({
-        appId: wechatRegisteredApp.appId,
-        universalLink: wechatRegisteredApp.universalLink,
-      });
-    }
     async function fetchSdkVersions(): Promise<void> {
       setAlipaySdkVersion(await alipay.getSdkVersion());
       setWechatSdkVersion(await wechatPay.getSdkVersion());
     }
-    void initSdk();
     void fetchSdkVersions();
   });
 

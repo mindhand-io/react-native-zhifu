@@ -5,11 +5,11 @@ interface InitOptions {
   appId: string;
 
   /**
-   * 应用配置的 Universal Link，请参考微信官方接入指南
+   * **（仅 iOS 有效）**应用配置的 Universal Link，请参考微信官方接入指南
    *
    * https://developers.weixin.qq.com/doc/oplatform/Mobile_App/Access_Guide/iOS.html
    */
-  universalLink: string;
+  universalLink?: string;
 }
 
 interface PayResult {
