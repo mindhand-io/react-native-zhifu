@@ -147,7 +147,7 @@ interface RnZhifuAlipayStatic {
   payInterceptorWithUrl(
     options: PayInterceptorOptions,
     onPayResult: (result: PayInterceptorResult) => void
-  ): boolean;
+  ): Promise<boolean>;
 }
 declare const alipay: RnZhifuAlipayStatic;
 export default alipay;
