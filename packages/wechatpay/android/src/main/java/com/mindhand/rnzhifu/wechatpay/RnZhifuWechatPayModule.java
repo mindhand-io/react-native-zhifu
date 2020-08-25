@@ -1,5 +1,7 @@
 package com.mindhand.rnzhifu.wechatpay;
 
+import android.app.Activity;
+
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
@@ -33,7 +35,12 @@ public class RnZhifuWechatPayModule extends ReactContextBaseJavaModule {
   @ReactMethod
   public void init(final ReadableMap options, Promise promise) {
     appId = options.getString("appId");
-    WXPayEntryActivity.wxApi = WXAPIFactory.createWXAPI(getCurrentActivity(), appId);
+    Activity activity = getCurrentActivity();
+    if (activity == null) {
+      promise.resolve(null);
+      return;
+    }
+    WXPayEntryActivity.wxApi = WXAPIFactory.createWXAPI(activity, appId);
     promise.resolve(null);
   }
 

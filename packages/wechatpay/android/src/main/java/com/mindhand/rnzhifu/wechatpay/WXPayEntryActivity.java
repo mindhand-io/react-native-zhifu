@@ -1,60 +1,53 @@
 package com.mindhand.rnzhifu.wechatpay;
 
 import android.app.Activity;
+import android.content.Intent;
+import android.os.Bundle;
 
-import com.facebook.react.bridge.ReactApplicationContext;
-import com.facebook.react.bridge.ReactContextBaseJavaModule;
-import com.facebook.react.bridge.ReactMethod;
+import androidx.annotation.Nullable;
+
+import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.Promise;
-import com.facebook.react.bridge.ReadableMap;
-import com.tencent.mm.opensdk.constants.Build;
-import com.tencent.mm.opensdk.modelpay.PayReq;
-import com.tencent.mm.opensdk.openapi.WXAPIFactory;
+import com.facebook.react.bridge.WritableMap;
+import com.tencent.mm.opensdk.constants.ConstantsAPI;
+import com.tencent.mm.opensdk.modelbase.BaseReq;
+import com.tencent.mm.opensdk.modelbase.BaseResp;
+import com.tencent.mm.opensdk.modelpay.PayResp;
+import com.tencent.mm.opensdk.openapi.IWXAPI;
+import com.tencent.mm.opensdk.openapi.IWXAPIEventHandler;
 
-import java.util.Map;
+public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler {
+  public static IWXAPI wxApi;
+  public static Promise paymentResultPromise;
 
-public class RnZhifuWechatPayModule extends ReactContextBaseJavaModule {
-  private final ReactApplicationContext reactContext;
-  private String appId;
-
-  public RnZhifuWechatPayModule(ReactApplicationContext reactContext) {
-    super(reactContext);
-    this.reactContext = reactContext;
+  @Override
+  protected void onCreate(@Nullable Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    wxApi.handleIntent(getIntent(), this);
   }
 
   @Override
-  public String getName() {
-    return "RnZhifuWechatPay";
+  protected void onNewIntent(Intent intent) {
+    super.onNewIntent(intent);
+
+    setIntent(intent);
+    wxApi.handleIntent(intent, this);
   }
 
-  @ReactMethod
-  public void getSdkVersion(Promise promise) {
-    promise.resolve(Build.SDK_VERSION_NAME.replace("android ", ""));
-  }
+  @Override
+  public void onReq(BaseReq baseReq) {}
 
-  @ReactMethod
-  public void init(final ReadableMap options, Promise promise) {
-    appId = options.getString("appId");
-    Activity activity = getCurrentActivity();
-    if (activity == null) {
-      promise.resolve(null);
-      return;
+  @Override
+  public void onResp(BaseResp resp) {
+    if (resp.getType() == ConstantsAPI.COMMAND_PAY_BY_WX) {
+      if (paymentResultPromise != null) {
+        WritableMap result = Arguments.createMap();
+        result.putInt("errCode", resp.errCode);
+        result.putString("errStr", resp.errStr);
+        result.putString("returnKey", ((PayResp)resp).returnKey);
+        paymentResultPromise.resolve(result);
+      }
+      finish();
     }
-    WXPayEntryActivity.wxApi = WXAPIFactory.createWXAPI(activity, appId);
-    promise.resolve(null);
-  }
-
-  @ReactMethod
-  void pay(final ReadableMap options, final Promise promise) {
-    PayReq req = new PayReq();
-    req.appId = appId;
-    req.partnerId = options.getString("partnerId");
-    req.prepayId = options.getString("prepayId");
-    req.packageValue = options.getString("package");
-    req.nonceStr = options.getString("nonceStr");
-    req.timeStamp = String.valueOf(options.getInt("timestamp"));
-    req.sign = options.getString("sign");
-    WXPayEntryActivity.paymentResultPromise = promise;
-    WXPayEntryActivity.wxApi.sendReq(req);
   }
 }
