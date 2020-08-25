@@ -1,6 +1,6 @@
 {
   "name": "react-native-zhifu-wechatpay",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "React Native payment module for WeChat Pay",
   "main": "index.js",
   "repository": {

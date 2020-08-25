@@ -19,20 +19,6 @@ public class WXPayEntryActivity extends com.mindhand.rnzhifu.wechatpay.WXPayEntr
   android:exported="true" />
 ```
 
-```text
--keep class com.tencent.mm.opensdk.** {
-    *;
-}
-
--keep class com.tencent.wxop.** {
-    *;
-}
-
--keep class com.tencent.mm.sdk.** {
-    *;
-}
-```
-
 ```objc
 #import <React/RCTLinkingManager.h>
 
@@ -41,6 +27,14 @@ public class WXPayEntryActivity extends com.mindhand.rnzhifu.wechatpay.WXPayEntr
    options:(NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options
 {
   return [RCTLinkingManager application:application openURL:url options:options];
+}
+
+- (BOOL)application:(UIApplication *)application continueUserActivity:(nonnull NSUserActivity *)userActivity
+ restorationHandler:(nonnull void (^)(NSArray<id<UIUserActivityRestoring>> * _Nullable))restorationHandler
+{
+ return [RCTLinkingManager application:application
+                  continueUserActivity:userActivity
+                    restorationHandler:restorationHandler];
 }
 
 - (BOOL)application:(UIApplication *)application continueUserActivity:(nonnull NSUserActivity *)userActivity
