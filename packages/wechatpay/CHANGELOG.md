@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.2.3](https://github.com/mindhand-io/react-native-zhifu/compare/react-native-zhifu-wechatpay@1.2.2...react-native-zhifu-wechatpay@1.2.3) (2020-08-25)
+
+### Bug Fixes
+
+- 修复上个 commit 代码错乱导致微信支付完全不可用 ([d160531](https://github.com/mindhand-io/react-native-zhifu/commit/d160531de6c44cc9892630ca2d73c110a7a68db9))
+
 ## [1.2.2](https://github.com/mindhand-io/react-native-zhifu/compare/react-native-zhifu-wechatpay@1.2.0...react-native-zhifu-wechatpay@1.2.2) (2020-08-25)
 
 ### Bug Fixes
