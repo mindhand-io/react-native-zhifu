@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [1.4.1](https://github.com/mindhand-io/react-native-zhifu/compare/react-native-zhifu-alipay@1.4.0...react-native-zhifu-alipay@1.4.1) (2020-08-26)
+
+### Bug Fixes
+
+- 回滚支付宝 SDK ([8e6884b](https://github.com/mindhand-io/react-native-zhifu/commit/8e6884b62c8d95ec8d8715367aaf7d54ddec231c))
+
 # [1.4.0](https://github.com/mindhand-io/react-native-zhifu/compare/react-native-zhifu-alipay@1.2.0...react-native-zhifu-alipay@1.4.0) (2020-08-25)
 
 ### Features
