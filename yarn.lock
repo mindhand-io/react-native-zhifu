@@ -1973,9 +1973,9 @@
   integrity sha1-7ihweulOEdK4J7y+UnC86n8+ce4=
 
 "@types/jsrsasign@^8.0.3":
-  version "8.0.3"
-  resolved "https://registry.yarnpkg.com/@types/jsrsasign/-/jsrsasign-8.0.3.tgz#ef62d0326e3f7047925d5defc4591a6c4a24bf8e"
-  integrity sha512-k04lvcT2VkdEwOkVMJuBPENJHZebD90NjKKp0hXvNgQ43StwnsUIHq+GULCgYIImGKpO2WhlpsCVolBYYzu1+Q==
+  version "8.0.8"
+  resolved "https://registry.yarnpkg.com/@types/jsrsasign/-/jsrsasign-8.0.8.tgz#4b4b261a467e778c468b2eb71cfe107ce3fb72b6"
+  integrity sha512-bRA2jfa0W4grKUXaOsT4ohtAYvjQCQEvdLvuQeAM938NfBcYNjN1+o/jeB/jhLyk5ncuxj/ReK8VQEqMwisN2Q==
 
 "@types/minimatch@*":
   version "3.0.3"
