@@ -10,7 +10,7 @@
   "devDependencies": {
     "@babel/core": "^7.9.0",
     "@babel/runtime": "^7.10.1",
-    "@commitlint/cli": "^9.0.1",
+    "@commitlint/cli": "^12.1.4",
     "@commitlint/config-conventional": "^9.0.1",
     "@mindhand-io/eslint-config": "^3.0.1",
     "@react-native-community/eslint-config": "^2.0.0",
